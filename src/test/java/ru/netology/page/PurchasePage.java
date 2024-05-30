@@ -18,6 +18,14 @@ public class PurchasePage {
     private final SelenideElement paymentCard = $(byText("Оплата по карте"));
     private final SelenideElement creditCard = $(byText("Кредит по данным карты"));
 
+    //Поля формы
+    private SelenideElement cardNumber = $("[placeholder='0000 0000 0000 0000']");
+    private SelenideElement month = $(byText("Месяц")).parent().$(".input__control");
+    private SelenideElement year = $(byText("Год")).parent().$(".input__control");
+    private SelenideElement holder = $(byText("Владелец")).parent().$(".input__control");
+    private SelenideElement cvcCvv = $(byText("CVC/CVV")).parent().$(".input__control");
+    private SelenideElement continueButton = $(byText("Продолжить"));
+
     //Оплата по карте
     public PurchasePage buyCard() {
         buy.click();
@@ -31,14 +39,6 @@ public class PurchasePage {
         creditCard.shouldBe(visible);
         return new PurchasePage();
     }
-
-    //Поля формы
-    private SelenideElement cardNumber = $("[placeholder='0000 0000 0000 0000']");
-    private SelenideElement month = $(byText("Месяц")).parent().$(".input__control");
-    private SelenideElement year = $(byText("Год")).parent().$(".input__control");
-    private SelenideElement holder = $(byText("Владелец")).parent().$(".input__control");
-    private SelenideElement cvcCvv = $(byText("CVC/CVV")).parent().$(".input__control");
-    private SelenideElement continueButton = $(byText("Продолжить"));
 
     //Ошибки
     private SelenideElement formatCardError = $(byText("Неверный формат")).parent().$(".input__sub");

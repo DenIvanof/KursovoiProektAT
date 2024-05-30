@@ -11,7 +11,7 @@ import static com.codeborne.selenide.Selenide.open;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static ru.netology.data.DataHelper.*;
 
-public class PurchaseTest {
+public class BuyCardTest {
     //java -jar artifacts/aqa-shop.jar
     //docker compose up
     //./gradlew clean test
@@ -34,16 +34,15 @@ public class PurchaseTest {
         SQLHelper.deleteTable();
     }
 
-    //Покупка
+    //Покупка обычная
     @Test
     @DisplayName("Покупка APPROVED картой")
     void cardPaymentMustBeApproved() {
         var cardinfo = new DataHelper.CardInfo(getApprovedCardNumber(), getValidMonth(), getValidYear(), getValidHolder(), getValidCVC());
         var purchasepage = new PurchasePage();
         purchasepage.buyCard();
-        var form = new PurchasePage();
-        form.fillingOutTheForm(cardinfo);
-        form.paymentSuccessFull();
+        purchasepage.fillingOutTheForm(cardinfo);
+        purchasepage.paymentSuccessFull();
         assertEquals("APPROVED", SQLHelper.getPaymentStatus());
     }
 
@@ -53,33 +52,8 @@ public class PurchaseTest {
         var cardinfo = new DataHelper.CardInfo(getDeclinedCardNumber(), getValidMonth(), getValidYear(), getValidHolder(), getValidCVC());
         var purchasepage = new PurchasePage();
         purchasepage.buyCard();
-        var form = new PurchasePage();
-        form.fillingOutTheForm(cardinfo);
-        form.declinedPayment();
-        assertEquals("DECLINED", SQLHelper.getPaymentStatus());
-    }
-
-    @Test
-    @DisplayName("Покупка APPROVED картой в кредит")
-    void creditPaymentMustBeApproved() {
-        var cardinfo = new DataHelper.CardInfo(getApprovedCardNumber(), getValidMonth(), getValidYear(), getValidHolder(), getValidCVC());
-        var purchasepage = new PurchasePage();
-        purchasepage.buyCreditCard();
-        var form = new PurchasePage();
-        form.fillingOutTheForm(cardinfo);
-        form.paymentSuccessFull();
-        assertEquals("APPROVED", SQLHelper.getPaymentStatus());
-    }
-
-    @Test
-    @DisplayName("Покупка DECLINED картой в кредит")
-    void creditPaymentMustBeDeclined() {
-        var cardinfo = new DataHelper.CardInfo(getDeclinedCardNumber(), getValidMonth(), getValidYear(), getValidHolder(), getValidCVC());
-        var purchasepage = new PurchasePage();
-        purchasepage.buyCreditCard();
-        var form = new PurchasePage();
-        form.fillingOutTheForm(cardinfo);
-        form.declinedPayment();
+        purchasepage.fillingOutTheForm(cardinfo);
+        purchasepage.declinedPayment();
         assertEquals("DECLINED", SQLHelper.getPaymentStatus());
     }
 
@@ -88,8 +62,7 @@ public class PurchaseTest {
     void sendAnEmptyPurchaseForm() {
         var purchasepage = new PurchasePage();
         purchasepage.buyCard();
-        var form = new PurchasePage();
-        form.emptyForm();
+        purchasepage.emptyForm();
     }
 
     //Поле карты
@@ -98,9 +71,8 @@ public class PurchaseTest {
     public void emptyCard() {
         var purchasepage = new PurchasePage();
         purchasepage.buyCard();
-        var form = new PurchasePage();
-        form.fillingOutTheForm(DataHelper.getCardNumberEmpty());
-        form.invalidCardFormat();
+        purchasepage.fillingOutTheForm(DataHelper.getCardNumberEmpty());
+        purchasepage.invalidCardFormat();
     }
 
     @Test
@@ -108,9 +80,8 @@ public class PurchaseTest {
     public void cardNumberSmall() {
         var purchasepage = new PurchasePage();
         purchasepage.buyCard();
-        var form = new PurchasePage();
-        form.fillingOutTheForm(DataHelper.getCardNumberSmall());
-        form.invalidCardFormat();
+        purchasepage.fillingOutTheForm(DataHelper.getCardNumberSmall());
+        purchasepage.invalidCardFormat();
     }
 
     @Test
@@ -118,9 +89,8 @@ public class PurchaseTest {
     public void cyrillicCard() {
         var purchasepage = new PurchasePage();
         purchasepage.buyCard();
-        var form = new PurchasePage();
-        form.fillingOutTheForm(DataHelper.getCardNumberCyrillic());
-        form.invalidCardFormat();
+        purchasepage.fillingOutTheForm(DataHelper.getCardNumberCyrillic());
+        purchasepage.invalidCardFormat();
     }
 
     @Test
@@ -128,9 +98,8 @@ public class PurchaseTest {
     public void latinCard() {
         var purchasepage = new PurchasePage();
         purchasepage.buyCard();
-        var form = new PurchasePage();
-        form.fillingOutTheForm(DataHelper.getCardNumberLatin());
-        form.invalidCardFormat();
+        purchasepage.fillingOutTheForm(DataHelper.getCardNumberLatin());
+        purchasepage.invalidCardFormat();
     }
 
     @Test
@@ -138,9 +107,8 @@ public class PurchaseTest {
     public void symbolCard() {
         var purchasepage = new PurchasePage();
         purchasepage.buyCard();
-        var form = new PurchasePage();
-        form.fillingOutTheForm(DataHelper.getCardNumberSymbol());
-        form.invalidCardFormat();
+        purchasepage.fillingOutTheForm(DataHelper.getCardNumberSymbol());
+        purchasepage.invalidCardFormat();
     }
 
     //Поле месяц
@@ -149,9 +117,8 @@ public class PurchaseTest {
     public void emptyMonth() {
         var purchasepage = new PurchasePage();
         purchasepage.buyCard();
-        var form = new PurchasePage();
-        form.fillingOutTheForm(DataHelper.getMonthEmpty());
-        form.invalidMonthFormat();
+        purchasepage.fillingOutTheForm(DataHelper.getMonthEmpty());
+        purchasepage.invalidMonthFormat();
     }
 
     @Test
@@ -159,9 +126,8 @@ public class PurchaseTest {
     public void twoZerosMonth() {
         var purchasepage = new PurchasePage();
         purchasepage.buyCard();
-        var form = new PurchasePage();
-        form.fillingOutTheForm(DataHelper.getMonthTwoZeros());
-        form.invalidMonthFormat();
+        purchasepage.fillingOutTheForm(DataHelper.getMonthTwoZeros());
+        purchasepage.invalidMonthFormat();
     }
 
     @Test
@@ -169,9 +135,8 @@ public class PurchaseTest {
     public void moreThanMonth() {
         var purchasepage = new PurchasePage();
         purchasepage.buyCard();
-        var form = new PurchasePage();
-        form.fillingOutTheForm(DataHelper.getMonth13());
-        form.invalidCardExpirationDate();
+        purchasepage.fillingOutTheForm(DataHelper.getMonth13());
+        purchasepage.invalidCardExpirationDate();
     }
 
     @Test
@@ -179,9 +144,8 @@ public class PurchaseTest {
     public void latinMonth() {
         var purchasepage = new PurchasePage();
         purchasepage.buyCard();
-        var form = new PurchasePage();
-        form.fillingOutTheForm(DataHelper.getMonthLatin());
-        form.invalidMonthFormat();
+        purchasepage.fillingOutTheForm(DataHelper.getMonthLatin());
+        purchasepage.invalidMonthFormat();
     }
 
     @Test
@@ -189,9 +153,8 @@ public class PurchaseTest {
     public void cyrillicMonth() {
         var purchasepage = new PurchasePage();
         purchasepage.buyCard();
-        var form = new PurchasePage();
-        form.fillingOutTheForm(DataHelper.getMonthCyrillic());
-        form.invalidMonthFormat();
+        purchasepage.fillingOutTheForm(DataHelper.getMonthCyrillic());
+        purchasepage.invalidMonthFormat();
     }
 
     @Test
@@ -199,9 +162,8 @@ public class PurchaseTest {
     public void simbolMonth() {
         var purchasepage = new PurchasePage();
         purchasepage.buyCard();
-        var form = new PurchasePage();
-        form.fillingOutTheForm(DataHelper.getMonthSymbol());
-        form.invalidMonthFormat();
+        purchasepage.fillingOutTheForm(DataHelper.getMonthSymbol());
+        purchasepage.invalidMonthFormat();
     }
 
     @Test
@@ -209,9 +171,8 @@ public class PurchaseTest {
     public void oneDigitMonth() {
         var purchasepage = new PurchasePage();
         purchasepage.buyCard();
-        var form = new PurchasePage();
-        form.fillingOutTheForm(DataHelper.getMonthOneDigit());
-        form.invalidMonthFormat();
+        purchasepage.fillingOutTheForm(DataHelper.getMonthOneDigit());
+        purchasepage.invalidMonthFormat();
     }
 
     //Поле год
@@ -220,9 +181,8 @@ public class PurchaseTest {
     public void notValidEmptyYear() {
         var purchasepage = new PurchasePage();
         purchasepage.buyCard();
-        var form = new PurchasePage();
-        form.fillingOutTheForm(DataHelper.getYearEmpty());
-        form.invalidYearFormat();
+        purchasepage.fillingOutTheForm(DataHelper.getYearEmpty());
+        purchasepage.invalidYearFormat();
     }
 
     @Test
@@ -230,9 +190,8 @@ public class PurchaseTest {
     public void oneDigitYear() {
         var purchasepage = new PurchasePage();
         purchasepage.buyCard();
-        var form = new PurchasePage();
-        form.fillingOutTheForm(DataHelper.getYearOneDigit());
-        form.invalidYearFormat();
+        purchasepage.fillingOutTheForm(DataHelper.getYearOneDigit());
+        purchasepage.invalidYearFormat();
     }
 
     @Test
@@ -240,9 +199,8 @@ public class PurchaseTest {
     public void lessThanCurrentOneYear() {
         var purchasepage = new PurchasePage();
         purchasepage.buyCard();
-        var form = new PurchasePage();
-        form.fillingOutTheForm(DataHelper.getYearLessThanCurrent());
-        form.theCardExpired();
+        purchasepage.fillingOutTheForm(DataHelper.getYearLessThanCurrent());
+        purchasepage.theCardExpired();
     }
 
     @Test
@@ -250,9 +208,8 @@ public class PurchaseTest {
     public void yearLongerThanTheCurrent() {
         var purchasepage = new PurchasePage();
         purchasepage.buyCard();
-        var form = new PurchasePage();
-        form.fillingOutTheForm(DataHelper.getYearMoreThanTheCurrentOne());
-        form.invalidCardExpirationDate();
+        purchasepage.fillingOutTheForm(DataHelper.getYearMoreThanTheCurrentOne());
+        purchasepage.invalidCardExpirationDate();
     }
 
     @Test
@@ -260,9 +217,8 @@ public class PurchaseTest {
     public void symbolYear() {
         var purchasepage = new PurchasePage();
         purchasepage.buyCard();
-        var form = new PurchasePage();
-        form.fillingOutTheForm(DataHelper.getYearSymbol());
-        form.invalidYearFormat();
+        purchasepage.fillingOutTheForm(DataHelper.getYearSymbol());
+        purchasepage.invalidYearFormat();
     }
 
     @Test
@@ -270,9 +226,8 @@ public class PurchaseTest {
     public void latinYear() {
         var purchasepage = new PurchasePage();
         purchasepage.buyCard();
-        var form = new PurchasePage();
-        form.fillingOutTheForm(DataHelper.getYearLatin());
-        form.invalidYearFormat();
+        purchasepage.fillingOutTheForm(DataHelper.getYearLatin());
+        purchasepage.invalidYearFormat();
     }
 
     @Test
@@ -280,9 +235,8 @@ public class PurchaseTest {
     public void cyrillicYear() {
         var purchasepage = new PurchasePage();
         purchasepage.buyCard();
-        var form = new PurchasePage();
-        form.fillingOutTheForm(DataHelper.getYearCyrillic());
-        form.invalidYearFormat();
+        purchasepage.fillingOutTheForm(DataHelper.getYearCyrillic());
+        purchasepage.invalidYearFormat();
     }
 
     //Поле владелец
@@ -291,9 +245,8 @@ public class PurchaseTest {
     public void emptyInHolder() {
         var purchasepage = new PurchasePage();
         purchasepage.buyCard();
-        var form = new PurchasePage();
-        form.fillingOutTheForm(DataHelper.getHolderEmpty());
-        form.invalidHolderFormat();
+        purchasepage.fillingOutTheForm(DataHelper.getHolderEmpty());
+        purchasepage.invalidHolderFormat();
     }
 
     @Test
@@ -301,9 +254,8 @@ public class PurchaseTest {
     public void cyrillicInHolder() {
         var purchasepage = new PurchasePage();
         purchasepage.buyCard();
-        var form = new PurchasePage();
-        form.fillingOutTheForm(DataHelper.getHolderCyrillic());
-        form.invalidHolderFormat();
+        purchasepage.fillingOutTheForm(DataHelper.getHolderCyrillic());
+        purchasepage.invalidHolderFormat();
     }
 
     @Test
@@ -311,9 +263,8 @@ public class PurchaseTest {
     public void symbolInHolder() {
         var purchasepage = new PurchasePage();
         purchasepage.buyCard();
-        var form = new PurchasePage();
-        form.fillingOutTheForm(DataHelper.getHolderSymbol());
-        form.invalidHolderFormat();
+        purchasepage.fillingOutTheForm(DataHelper.getHolderSymbol());
+        purchasepage.invalidHolderFormat();
     }
 
     @Test
@@ -321,9 +272,8 @@ public class PurchaseTest {
     public void digitInHolder() {
         var purchasepage = new PurchasePage();
         purchasepage.buyCard();
-        var form = new PurchasePage();
-        form.fillingOutTheForm(DataHelper.getHolderDigit());
-        form.invalidHolderFormat();
+        purchasepage.fillingOutTheForm(DataHelper.getHolderDigit());
+        purchasepage.invalidHolderFormat();
     }
 
     @Test
@@ -331,9 +281,8 @@ public class PurchaseTest {
     public void oneLetterInHolder() {
         var purchasepage = new PurchasePage();
         purchasepage.buyCard();
-        var form = new PurchasePage();
-        form.fillingOutTheForm(DataHelper.getHolderOneLetter());
-        form.invalidHolderFormat();
+        purchasepage.fillingOutTheForm(DataHelper.getHolderOneLetter());
+        purchasepage.invalidHolderFormat();
     }
 
     @Test
@@ -341,9 +290,8 @@ public class PurchaseTest {
     public void moreThan100lettersPerHolder() {
         var purchasepage = new PurchasePage();
         purchasepage.buyCard();
-        var form = new PurchasePage();
-        form.fillingOutTheForm(DataHelper.getHolderMoreThan100());
-        form.invalidHolderFormat();
+        purchasepage.fillingOutTheForm(DataHelper.getHolderMoreThan100());
+        purchasepage.invalidHolderFormat();
     }
 
     //Поле CVC
@@ -352,9 +300,8 @@ public class PurchaseTest {
     public void symbolInCVC() {
         var purchasepage = new PurchasePage();
         purchasepage.buyCard();
-        var form = new PurchasePage();
-        form.fillingOutTheForm(DataHelper.getCVCSymbol());
-        form.invalidCvcFormat();
+        purchasepage.fillingOutTheForm(DataHelper.getCVCSymbol());
+        purchasepage.invalidCvcFormat();
     }
 
     @Test
@@ -362,9 +309,8 @@ public class PurchaseTest {
     public void lettersInCVC() {
         var purchasepage = new PurchasePage();
         purchasepage.buyCard();
-        var form = new PurchasePage();
-        form.fillingOutTheForm(DataHelper.getCVCLatin());
-        form.invalidCvcFormat();
+        purchasepage.fillingOutTheForm(DataHelper.getCVCLatin());
+        purchasepage.invalidCvcFormat();
     }
 
     @Test
@@ -372,9 +318,8 @@ public class PurchaseTest {
     public void cyrillicCVC() {
         var purchasepage = new PurchasePage();
         purchasepage.buyCard();
-        var form = new PurchasePage();
-        form.fillingOutTheForm(DataHelper.getCVCCyrillic());
-        form.invalidCvcFormat();
+        purchasepage.fillingOutTheForm(DataHelper.getCVCCyrillic());
+        purchasepage.invalidCvcFormat();
     }
 
     @Test
@@ -382,9 +327,8 @@ public class PurchaseTest {
     public void twoDigitInCVC() {
         var purchasepage = new PurchasePage();
         purchasepage.buyCard();
-        var form = new PurchasePage();
-        form.fillingOutTheForm(DataHelper.getCVCtwoDigit());
-        form.invalidCvcFormat();
+        purchasepage.fillingOutTheForm(DataHelper.getCVCtwoDigit());
+        purchasepage.invalidCvcFormat();
     }
 
     @Test
@@ -392,9 +336,8 @@ public class PurchaseTest {
     public void emptyInCVC() {
         var purchasepage = new PurchasePage();
         purchasepage.buyCard();
-        var form = new PurchasePage();
-        form.fillingOutTheForm(DataHelper.getCVCempty());
-        form.invalidCvcFormat();
+        purchasepage.fillingOutTheForm(DataHelper.getCVCempty());
+        purchasepage.invalidCvcFormat();
     }
 
 }
