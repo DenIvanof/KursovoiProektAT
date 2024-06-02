@@ -6,7 +6,6 @@ import org.apache.commons.dbutils.handlers.ScalarHandler;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.SQLException;
 
 public class SQLHelper {
 
@@ -24,7 +23,7 @@ public class SQLHelper {
         var deletePaymentEntity = "DELETE FROM payment_entity ";
         var runner = new QueryRunner();
         var conn = getConn();
-            runner.update(conn, deletePaymentEntity);
+        runner.update(conn, deletePaymentEntity);
     }
 
     @SneakyThrows
@@ -37,7 +36,7 @@ public class SQLHelper {
     private static String getStatus(String query) {
         var runner = new QueryRunner();
         var conn = getConn();
-            String status = runner.query(conn, query, new ScalarHandler<String>());
-            return status;
+        String status = runner.query(conn, query, new ScalarHandler<String>());
+        return status;
     }
 }

@@ -10,7 +10,6 @@ import ru.netology.page.PurchasePage;
 import static com.codeborne.selenide.Selenide.open;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static ru.netology.data.DataHelper.*;
-import static ru.netology.data.DataHelper.getValidCVC;
 
 public class BuyCreditCardTest {
     //java -jar artifacts/aqa-shop.jar
