@@ -36,23 +36,23 @@ public class DataHelper {
 
     //Невалидные значения
     public static CardInfo getCardNumberEmpty() {
-        return new CardInfo("", getValidMonth(), getValidYear(), getValidHolder(), getValidCVC());
+        return new CardInfo("", getValidMonth(), getValidYear(0), getValidHolder(), getValidCVC());
     }
 
     public static CardInfo getCardNumberSmall() {
-        return new CardInfo("1111 2222 3333 44", getValidMonth(), getValidYear(), getValidHolder(), getValidCVC());
+        return new CardInfo("1111 2222 3333 44", getValidMonth(), getValidYear(0), getValidHolder(), getValidCVC());
     }
 
     public static CardInfo getCardNumberCyrillic() {
-        return new CardInfo("1111 2222 3333 44гг", getValidMonth(), getValidYear(), getValidHolder(), getValidCVC());
+        return new CardInfo("1111 2222 3333 44гг", getValidMonth(), getValidYear(0), getValidHolder(), getValidCVC());
     }
 
     public static CardInfo getCardNumberLatin() {
-        return new CardInfo("1111 2222 3333 44ff", getValidMonth(), getValidYear(), getValidHolder(), getValidCVC());
+        return new CardInfo("1111 2222 3333 44ff", getValidMonth(), getValidYear(0), getValidHolder(), getValidCVC());
     }
 
     public static CardInfo getCardNumberSymbol() {
-        return new CardInfo("1111 2222 3333 44@&", getValidMonth(), getValidYear(), getValidHolder(), getValidCVC());
+        return new CardInfo("1111 2222 3333 44@&", getValidMonth(), getValidYear(0), getValidHolder(), getValidCVC());
     }
 
     //Месяц
@@ -64,37 +64,36 @@ public class DataHelper {
 
     //Невалидные значения
     public static CardInfo getMonthEmpty() {
-        return new CardInfo(getApprovedCardNumber(), "", getValidYear(), getValidHolder(), getValidCVC());
+        return new CardInfo(getApprovedCardNumber(), "", getValidYear(0), getValidHolder(), getValidCVC());
     }
 
     public static CardInfo getMonth13() {
-        return new CardInfo(getApprovedCardNumber(), "13", getValidYear(), getValidHolder(), getValidCVC());
+        return new CardInfo(getApprovedCardNumber(), "13", getValidYear(0), getValidHolder(), getValidCVC());
     }
 
     public static CardInfo getMonthSymbol() {
-        return new CardInfo(getApprovedCardNumber(), "1!", getValidYear(), getValidHolder(), getValidCVC());
+        return new CardInfo(getApprovedCardNumber(), "1!", getValidYear(0), getValidHolder(), getValidCVC());
     }
 
     public static CardInfo getMonthLatin() {
-        return new CardInfo(getApprovedCardNumber(), "f2", getValidYear(), getValidHolder(), getValidCVC());
+        return new CardInfo(getApprovedCardNumber(), "f2", getValidYear(0), getValidHolder(), getValidCVC());
     }
 
     public static CardInfo getMonthCyrillic() {
-        return new CardInfo(getApprovedCardNumber(), "г2", getValidYear(), getValidHolder(), getValidCVC());
+        return new CardInfo(getApprovedCardNumber(), "г2", getValidYear(0), getValidHolder(), getValidCVC());
     }
 
     public static CardInfo getMonthOneDigit() {
-        return new CardInfo(getApprovedCardNumber(), "0", getValidYear(), getValidHolder(), getValidCVC());
+        return new CardInfo(getApprovedCardNumber(), "0", getValidYear(0), getValidHolder(), getValidCVC());
     }
 
     public static CardInfo getMonthTwoZeros() {
-        return new CardInfo(getApprovedCardNumber(), "00", getValidYear(), getValidHolder(), getValidCVC());
+        return new CardInfo(getApprovedCardNumber(), "00", getValidYear(0), getValidHolder(), getValidCVC());
     }
 
     //Год
     //Валидные значения
-    public static String getValidYear() {
-        int year = 0;
+    public static String getValidYear(int year) {
         return LocalDate.now().plusYears(year).format(DateTimeFormatter.ofPattern("yy"));
     }
 
@@ -145,27 +144,27 @@ public class DataHelper {
 
     //Невалидные значения
     public static CardInfo getHolderCyrillic() {
-        return new CardInfo(getApprovedCardNumber(), getValidMonth(), getValidYear(), "Денис", getValidCVC());
+        return new CardInfo(getApprovedCardNumber(), getValidMonth(), getValidYear(0), "Денис", getValidCVC());
     }
 
     public static CardInfo getHolderSymbol() {
-        return new CardInfo(getApprovedCardNumber(), getValidMonth(), getValidYear(), "%denis", getValidCVC());
+        return new CardInfo(getApprovedCardNumber(), getValidMonth(), getValidYear(0), "%denis", getValidCVC());
     }
 
     public static CardInfo getHolderDigit() {
-        return new CardInfo(getApprovedCardNumber(), getValidMonth(), getValidYear(), "1denis", getValidCVC());
+        return new CardInfo(getApprovedCardNumber(), getValidMonth(), getValidYear(0), "1denis", getValidCVC());
     }
 
     public static CardInfo getHolderOneLetter() {
-        return new CardInfo(getApprovedCardNumber(), getValidMonth(), getValidYear(), "S", getValidCVC());
+        return new CardInfo(getApprovedCardNumber(), getValidMonth(), getValidYear(0), "S", getValidCVC());
     }
 
     public static CardInfo getHolderMoreThan100() {
-        return new CardInfo(getApprovedCardNumber(), getValidMonth(), getValidYear(), "Aaaaaaaaaaaaaaaaaaaaaaaaadddddddddddddddddddddddddlllllllllllllllllllllllllyyyyyyyyyyyyyyyyyyyyyyyyyeeeeeeeeee", getValidCVC());
+        return new CardInfo(getApprovedCardNumber(), getValidMonth(), getValidYear(0), "Aaaaaaaaaaaaaaaaaaaaaaaaadddddddddddddddddddddddddlllllllllllllllllllllllllyyyyyyyyyyyyyyyyyyyyyyyyyeeeeeeeeee", getValidCVC());
     }
 
     public static CardInfo getHolderEmpty() {
-        return new CardInfo(getApprovedCardNumber(), getValidMonth(), getValidYear(), "", getValidCVC());
+        return new CardInfo(getApprovedCardNumber(), getValidMonth(), getValidYear(0), "", getValidCVC());
     }
 
     //CVC/CVV
@@ -176,22 +175,22 @@ public class DataHelper {
 
     //Невалидные значения
     public static CardInfo getCVCSymbol() {
-        return new CardInfo(getApprovedCardNumber(), getValidMonth(), getValidYear(), getValidHolder(), "12#");
+        return new CardInfo(getApprovedCardNumber(), getValidMonth(), getValidYear(0), getValidHolder(), "12#");
     }
 
     public static CardInfo getCVCLatin() {
-        return new CardInfo(getApprovedCardNumber(), getValidMonth(), getValidYear(), getValidHolder(), "22r");
+        return new CardInfo(getApprovedCardNumber(), getValidMonth(), getValidYear(0), getValidHolder(), "22r");
     }
 
     public static CardInfo getCVCCyrillic() {
-        return new CardInfo(getApprovedCardNumber(), getValidMonth(), getValidYear(), getValidHolder(), "22r");
+        return new CardInfo(getApprovedCardNumber(), getValidMonth(), getValidYear(0), getValidHolder(), "22r");
     }
 
     public static CardInfo getCVCtwoDigit() {
-        return new CardInfo(getApprovedCardNumber(), getValidMonth(), getValidYear(), getValidHolder(), "22");
+        return new CardInfo(getApprovedCardNumber(), getValidMonth(), getValidYear(0), getValidHolder(), "22");
     }
 
     public static CardInfo getCVCempty() {
-        return new CardInfo(getApprovedCardNumber(), getValidMonth(), getValidYear(), getValidHolder(), "");
+        return new CardInfo(getApprovedCardNumber(), getValidMonth(), getValidYear(0), getValidHolder(), "");
     }
 }

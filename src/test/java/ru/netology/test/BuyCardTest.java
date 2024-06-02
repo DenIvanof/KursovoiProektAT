@@ -38,7 +38,7 @@ public class BuyCardTest {
     @Test
     @DisplayName("Покупка APPROVED картой")
     void cardPaymentMustBeApproved() {
-        var cardinfo = new DataHelper.CardInfo(getApprovedCardNumber(), getValidMonth(), getValidYear(), getValidHolder(), getValidCVC());
+        var cardinfo = new DataHelper.CardInfo(getApprovedCardNumber(), getValidMonth(), getValidYear(0), getValidHolder(), getValidCVC());
         var purchasepage = new PurchasePage();
         purchasepage.buyCard();
         purchasepage.fillingOutTheForm(cardinfo);
@@ -49,7 +49,7 @@ public class BuyCardTest {
     @Test
     @DisplayName("Покупка DECLINED картой")
     void cardPaymentMustBeDeclined() {
-        var cardinfo = new DataHelper.CardInfo(getDeclinedCardNumber(), getValidMonth(), getValidYear(), getValidHolder(), getValidCVC());
+        var cardinfo = new DataHelper.CardInfo(getDeclinedCardNumber(), getValidMonth(), getValidYear(0), getValidHolder(), getValidCVC());
         var purchasepage = new PurchasePage();
         purchasepage.buyCard();
         purchasepage.fillingOutTheForm(cardinfo);
