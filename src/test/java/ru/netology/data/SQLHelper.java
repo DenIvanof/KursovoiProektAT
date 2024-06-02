@@ -23,11 +23,8 @@ public class SQLHelper {
     public static void deleteTable() {
         var deletePaymentEntity = "DELETE FROM payment_entity ";
         var runner = new QueryRunner();
-        try (var conn = getConn()) {
+        var conn = getConn();
             runner.update(conn, deletePaymentEntity);
-        } catch (SQLException sqlException) {
-            sqlException.printStackTrace();
-        }
     }
 
     @SneakyThrows
@@ -39,9 +36,8 @@ public class SQLHelper {
     @SneakyThrows
     private static String getStatus(String query) {
         var runner = new QueryRunner();
-        try (var conn = getConn()) {
+        var conn = getConn();
             String status = runner.query(conn, query, new ScalarHandler<String>());
             return status;
-        }
     }
 }
